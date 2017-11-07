@@ -229,7 +229,7 @@ new_predictions.select("predictedLabel").show()
     - Select "IBM SPSS Modeler" Runtime
     - Click "Create Flow"
 3) Drag and drop node "tennis.csv" from the Files list to the flow
-4) Click the big plus "+" icon to show node palette
+4) Click the first icon from toolbar to show node palette
 5) Select node "Type" from "Field Operations", drag and drop the node to the flow
 6) Connect node "tennis.csc" to node "Type"
 7) Righ click node "Type", select "Open",
