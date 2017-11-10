@@ -263,7 +263,7 @@ new_predictions.select("predictedLabel").show()
 2) Add new cells after cell "In [4]", and add the following code to the cells, and execute them
 
 In [5]
-```
+```python
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -283,7 +283,7 @@ Out [5]:
 
 
 In [6]
-```
+```python
 # Set up a grid of plots
 fig = plt.figure(figsize=(10, 10)) 
 fig_dims = (3, 2)
@@ -322,8 +322,23 @@ Out [6]:
 ![](https://github.com/mlhubca/cascon/blob/master/images/play6.png)
 
 
-3) Add a new cell after cell "In [11]" (see Exercise 1), and add the following code to the cells, and execute it
+3) Add two new cells after cell "In [11]" (see Exercise 1), and add the following code to the cells, and execute then
+```python
+from pyspark.mllib.evaluation import BinaryClassificationMetrics as metric
+results = predictions.select(['probability', 'label'])
+ 
+## prepare score-label set
+results_collect = results.collect()
+results_list = [(float(i[0][0]), 1.0-float(i[1])) for i in results_collect]
+scoreAndLabels = sc.parallelize(results_list)
+ 
+metrics = metric(scoreAndLabels)
+print("The ROC score is: ", metrics.areaUnderROC)
+
 ```
+
+
+```python
 from sklearn.metrics import roc_curve, auc
  
 fpr = dict()
